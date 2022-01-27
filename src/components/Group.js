@@ -13,7 +13,7 @@ import {
   InfoOutlineIcon,
   ChevronDownIcon
 } from '@chakra-ui/icons';
-import { Flex } from '../../../todo-app/node_modules/@chakra-ui/layout/dist/chakra-ui-layout.cjs';
+import { Flex } from '@chakra-ui/react';
 export const Group = ({
   id,
   groupType,
