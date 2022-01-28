@@ -41,8 +41,8 @@ export const Group = ({
   const EventList = (eventList) => {
     return (
       <MenuList minWidth="240px" type="checkbox" defaultChecked>
-        {eventList.title.map((value) => (
-          <MenuItem>{value}</MenuItem>
+        {eventList.map((value) => (
+          <MenuItem key={value.title}>{value.title}</MenuItem>
         ))}
       </MenuList>
     );
@@ -66,9 +66,11 @@ export const Group = ({
     }
   };
   let eventHours = (eventList) => {
-    eventList.time.reduce((sum, element) => {
-      return sum + element;
-    }, 0);
+    let total = 0;
+    eventList.forEach((list) => {
+      total += list.time;
+    });
+    return total;
   };
   return (
     <>
