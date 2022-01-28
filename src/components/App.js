@@ -1,4 +1,5 @@
 import { Group } from "./Group";
+import { InputDate } from "./InputDate";
 
 function App() {
   const eventList = [
@@ -17,13 +18,14 @@ function App() {
   ];
   return (
     <>
-      <Group
+      <InputDate />
+      {/* <Group
         id="1"
         groupType="search"
         groupTitle="Work"
         eventList={eventList}
         additionalRowType=""
-      />
+      /> */}
     </>
   );
 }

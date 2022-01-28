@@ -4,8 +4,8 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Text,
-  Button
+  Button,
+  Input
 } from "@chakra-ui/react";
 import {
   SearchIcon,
@@ -51,14 +51,14 @@ export const Group = ({
     if (additionalRowType === "perHour") {
       return (
         <Flex>
-          時給 <Text type="number" />
+          時給 <Input variant="filled" type="number" />
         </Flex>
       );
     }
     if (additionalRowType === "perDay") {
       return (
         <Flex>
-          日給 <Text type="number" />
+          日給 <Input variant="filled" type="number" />
         </Flex>
       );
     } else {
