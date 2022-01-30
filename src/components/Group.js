@@ -4,8 +4,8 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Text,
-  Button
+  Button,
+  Input
 } from "@chakra-ui/react";
 import {
   SearchIcon,
@@ -41,8 +41,8 @@ export const Group = ({
   const EventList = (eventList) => {
     return (
       <MenuList minWidth="240px" type="checkbox" defaultChecked>
-        {eventList.title.map((value) => (
-          <MenuItem>{value}</MenuItem>
+        {eventList.map((value) => (
+          <MenuItem key={value.title}>{value.title}</MenuItem>
         ))}
       </MenuList>
     );
@@ -51,14 +51,14 @@ export const Group = ({
     if (additionalRowType === "perHour") {
       return (
         <Flex>
-          時給 <Text type="number" />
+          時給 <Input variant="filled" type="number" />
         </Flex>
       );
     }
     if (additionalRowType === "perDay") {
       return (
         <Flex>
-          日給 <Text type="number" />
+          日給 <Input variant="filled" type="number" />
         </Flex>
       );
     } else {
@@ -66,9 +66,11 @@ export const Group = ({
     }
   };
   let eventHours = (eventList) => {
-    eventList.time.reduce((sum, element) => {
-      return sum + element;
-    }, 0);
+    let total = 0;
+    eventList.forEach((list) => {
+      total += list.time;
+    });
+    return total;
   };
   return (
     <>

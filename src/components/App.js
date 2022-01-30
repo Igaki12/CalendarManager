@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { Group } from "./Group";
+import { InputDate } from "./InputDate";
 
 function App() {
+  const eventList = [
+    {
+      title: "working in the cram school",
+      time: 10
+    },
+    {
+      title: "medical training",
+      time: 4
+    },
+    {
+      title: "sleep",
+      time: 8
+    }
+  ];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <InputDate />
+      {/* <Group
+        id="1"
+        groupType="search"
+        groupTitle="Work"
+        eventList={eventList}
+        additionalRowType=""
+      /> */}
+    </>
   );
 }
 
