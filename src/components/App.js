@@ -20,16 +20,15 @@ function App() {
   return (
     <>
       <InputDate />
-      {/* <App_calc /> */}
+      <App_calc />
       <InputDate />
-      {/* <Group
-      console.log();
+      <Group
         id="1"
         groupType="search"
         groupTitle="Work"
         eventList={eventList}
         additionalRowType=""
-      /> */}
+      />
     </>
   );
 }
