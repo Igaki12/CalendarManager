@@ -1,5 +1,6 @@
 import { Group } from "./Group";
 import { InputDate } from "./InputDate";
+import {App_calc} from "../apis/calendar";
 
 function App() {
   const eventList = [
@@ -18,6 +19,8 @@ function App() {
   ];
   return (
     <>
+      <InputDate />
+      <App_calc />
       <InputDate />
       {/* <Group
         id="1"
