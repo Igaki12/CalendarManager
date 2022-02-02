@@ -41,8 +41,8 @@ export const Group = ({
   const EventList = (eventList) => {
     return (
       <MenuList minWidth="240px" type="checkbox" defaultChecked>
-        {eventList.map((value) => (
-          <MenuItem key={value.title}>{value.title}</MenuItem>
+        {eventList.map((value,index) => (
+          <MenuItem key={index}>{value.title}</MenuItem>
         ))}
       </MenuList>
     );
@@ -82,7 +82,7 @@ export const Group = ({
       </Menu>
       <Flex>個数 {eventList.length}</Flex>
       <Flex>総時間 {eventHours(eventList)}</Flex>
-      <AdditionalRow />
+      <AdditionalRow additionalRowType={additionalRowType} />
     </>
   );
 };
