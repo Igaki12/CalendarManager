@@ -1,4 +1,4 @@
-import { ApiCalendar } from "react-google-calendar-api";
+import ApiCalendar from "react-google-calendar-api";
 import "./App.css";
 function App_calc() {
   const getEvents = async () => {
