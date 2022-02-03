@@ -1,6 +1,6 @@
 import ApiCalendar from "react-google-calendar-api";
 import "./App.css";
-function App_calc() {
+export function App_calc() {
   const getEvents = async () => {
     return new Promise(async (resolve, reject) => {
       if (ApiCalendar.sign) {
@@ -30,5 +30,4 @@ function App_calc() {
       <button onClick="()=> getEvents()">Get Events</button>
     </div>
   );
-}
-export default App_calc;
+};
