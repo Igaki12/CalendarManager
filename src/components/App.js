@@ -10,7 +10,7 @@ function App() {
     },
     {
       title: "medical training",
-      time: 4
+      time: 5
     },
     {
       title: "sleep",
