@@ -4,11 +4,11 @@ export function App_calc() {
   const getEvents = async () => {
     return new Promise(async (resolve, reject) => {
       //2.認証チェック
-      if (true) {
+      if (ApiCalendar.sign) {
         //3.イベントの取得
         ApiCalendar.listEvents({
           timeMin: new Date().toISOString(),
-          // timeMax: new Date().addDays(10).toISOString(),
+          timeMax: new Date().addDays(10).toISOString(),
           showDeleted: true,
           maxResults: 10,
           orderBy: 'updated'

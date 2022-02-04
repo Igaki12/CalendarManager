@@ -1,6 +1,6 @@
 import { Group } from "./Group";
 import { InputDate } from "./InputDate";
-import {App_calc} from "../apis/calendar.js";
+import { App_calc } from "../apis/calendar.js";
 
 function App() {
   const eventList = [
