@@ -22,13 +22,13 @@ function App() {
       <InputDate />
       <App_calc />
       <InputDate />
-      <Group
+      {/* <Group
         id="1"
         groupType="search"
         groupTitle="Work"
         eventList={eventList}
         additionalRowType=""
-      />
+      /> */}
     </>
   );
 }
