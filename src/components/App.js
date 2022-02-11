@@ -12,7 +12,7 @@ function App() {
         id="1"
         groupType="search"
         groupTitle="Work"
-        eventList={eventList}
+        // eventList={eventList}
         additionalRowType=""
       />
     </>
