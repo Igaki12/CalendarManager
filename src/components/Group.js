@@ -43,7 +43,7 @@ export const Group = ({
     else if (groupType === "at") return <AtSignIcon />;
     return <InfoOutlineIcon />;
   };
-  const GroupTitle = (id, groupType, groupTitle) => {
+  const GroupTitle = ({id, groupType, groupTitle}) => {
     return (
       <Flex>
         {id}
