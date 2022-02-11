@@ -3,20 +3,7 @@ import { InputDate } from "./InputDate";
 // import { App_calc } from "../apis/calendar.js";
 
 function App() {
-  const eventList = [
-    {
-      title: "working in the cram school",
-      time: 10
-    },
-    {
-      title: "medical training",
-      time: 5
-    },
-    {
-      title: "sleep",
-      time: 8
-    }
-  ];
+
   return (
     <>
       <InputDate />

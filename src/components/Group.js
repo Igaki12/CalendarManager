@@ -19,9 +19,23 @@ export const Group = ({
   id,
   groupType,
   groupTitle,
-  eventList,
+  // eventList,
   additionalRowType
 }) => {
+  const eventList = [
+    {
+      title: "working in the cram school",
+      time: 10
+    },
+    {
+      title: "medical training",
+      time: 5
+    },
+    {
+      title: "sleep",
+      time: 8
+    }
+  ];
   const TitleIcon = (groupType) => {
     if (groupType === "search") return <SearchIcon />;
     else if (groupType === "time") return <TimeIcon />;
@@ -38,15 +52,25 @@ export const Group = ({
       </Flex>
     );
   };
-  const EventList = (eventList) => {
+  // const EventList = (eventList) => {
+  //   return (
+  //     <MenuList minWidth="240px" type="checkbox" defaultChecked>
+  //       {eventList.map((value,index) => (
+  //         <MenuItem key={index}>{value.title}</MenuItem>
+  //       ))}
+  //     </MenuList>
+  //   );
+  // };
+
+  const EventList = () => {
     return (
       <MenuList minWidth="240px" type="checkbox" defaultChecked>
-        {eventList.map((value,index) => (
-          <MenuItem key={index}>{value.title}</MenuItem>
-        ))}
-      </MenuList>
-    );
-  };
+         {eventList.map((value,index) => (
+           <MenuItem key={index}>{value.title}</MenuItem>
+         ))}
+       </MenuList>
+    )
+  }
   const AdditionalRow = (additionalRowType) => {
     if (additionalRowType === "perHour") {
       return (
