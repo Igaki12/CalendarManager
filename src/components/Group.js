@@ -86,7 +86,7 @@ export const Group = ({
         </Flex>
       );
     } else {
-      return;
+      return null;
     }
   };
   let eventHours = (eventList) => {
