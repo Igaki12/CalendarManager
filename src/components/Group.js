@@ -4,8 +4,10 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  MenuOptionGroup,
   Button,
-  Input
+  Input,
+  MenuItemOption
 } from "@chakra-ui/react";
 import {
   SearchIcon,
@@ -41,11 +43,11 @@ export const Group = ({
     else if (groupType === "time") return <TimeIcon />;
     else if (groupType === "calendar") return <CalendarIcon />;
     else if (groupType === "at") return <AtSignIcon />;
-    return <InfoOutlineIcon />;
+    else return <InfoOutlineIcon />;
   };
   const GroupTitle = ({id, groupType, groupTitle}) => {
     return (
-      <Flex>
+      <Flex minWidth='200px' >
         {id}
         <TitleIcon groupType={groupType} />
         {groupTitle}
@@ -64,11 +66,16 @@ export const Group = ({
 
   const EventList = () => {
     return (
-      <MenuList minWidth="240px" type="checkbox" defaultChecked>
-         {eventList.map((value,index) => (
-           <MenuItem key={index}>{value.title}</MenuItem>
-         ))}
+      <MenuList>
+        <MenuOptionGroup title='Events' type='checkbox'>
+    
+           {eventList.map((value,index) => (
+             <MenuItemOption key={index} value={index} >{value.title}</MenuItemOption>
+             ))}
+
+         </MenuOptionGroup>
        </MenuList>
+
     )
   }
   const AdditionalRow = (additionalRowType) => {
@@ -98,8 +105,9 @@ export const Group = ({
   };
   return (
     <>
-      <Menu>
-        <MenuButton as={Button} rightIcon={<ChevronDownIcon />} display="flex">
+    <br />
+      <Menu closeOnSelect={false}>
+        <MenuButton  colorScheme='blue' as={Button} rightIcon={<ChevronDownIcon />}>
           <GroupTitle id={id} groupType={groupType} groupTitle={groupTitle} />
         </MenuButton>
         <EventList eventList={eventList} />
