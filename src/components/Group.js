@@ -6,7 +6,11 @@ import {
   MenuOptionGroup,
   Button,
   Input,
-  MenuItemOption
+  MenuItemOption,
+  SliderFilledTrack,
+  SliderTrack,
+  Slider,
+  SliderThumb,
 } from "@chakra-ui/react";
 import {
   SearchIcon,
@@ -43,11 +47,11 @@ export const Group = ({
   else if (groupType === "at") menuScheme = 'red';
 
   const TitleIcon = ({groupType}) => {
-    if (groupType === 'search')  return <SearchIcon />;
-    else if (groupType === "time") return <TimeIcon />;
-    else if (groupType === "calendar") return <CalendarIcon />;
-    else if (groupType === "at") return <AtSignIcon />;
-    else return <InfoOutlineIcon />;
+    if (groupType === 'search')  return <SearchIcon mt='1' />;
+    else if (groupType === "time") return <TimeIcon mt='1' />;
+    else if (groupType === "calendar") return <CalendarIcon mt='1' />;
+    else if (groupType === "at") return <AtSignIcon mt='1' />;
+    else return <InfoOutlineIcon mt='1' />;
   };
   const GroupTitle = ({groupType, groupTitle}) => {
     return (
@@ -82,8 +86,21 @@ export const Group = ({
   const AdditionalRow = ({additionalRowType}) => {
     if (additionalRowType === "perHour") {
       return (
-        <Flex fontSize='2xl' ml='10%'>
-          時給　<Input fontSize='2xl' size='sm' type="number" maxWidth='100px' mr='10px' />円
+        <Flex maxW='sm' ml='10' mr={10} fontSize='2xl'>
+          時給
+          <Slider defaultValue={1000} min={800} max={3000} step={100} maxWidth='200' ml={10}
+        // flex='1'
+        // focusThumbOnChange={false}
+        // value={value}
+        // onChange={handleChange}
+          >
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb fontSize='sm' boxSize='25px' 
+            // children={value} 
+             />
+          </Slider>
         </Flex>
       );
     }
