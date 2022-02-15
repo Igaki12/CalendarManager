@@ -8,7 +8,8 @@ export function App_calc() {
         //3.イベントの取得
         ApiCalendar.listEvents({
           timeMin: new Date().toISOString(),
-          timeMax: new Date().addDays(10).toISOString(),
+          // timeMax: new Date().addDays(10).toISOString(),
+          timeMax: new Date().setDate(new Date() + 10).toISOString(),
           showDeleted: true,
           maxResults: 10,
           orderBy: 'updated'

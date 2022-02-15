@@ -4,7 +4,7 @@ import { PlusSquareIcon, } from "@chakra-ui/icons";
 export const GroupAdd = ({inputEl}) => {
   return (
     <>
-      <Box maxW='sm' borderWidth='1px' borderRadius='lg' m='1' mt='5' bgColor='orange.50'>
+      <Box maxW='lg' borderWidth='1px' borderRadius='lg' m='1' mt='5' bgColor='orange.50'>
       <Box bg='brown' w='100%' p='2' color='white' fontSize='2xl' pl='5'>
         ＋ イベントグループを追加
       </Box>
