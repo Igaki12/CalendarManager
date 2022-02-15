@@ -11,6 +11,7 @@ import {
   SliderTrack,
   Slider,
   SliderThumb,
+  Textarea,
 } from "@chakra-ui/react";
 import {
   SearchIcon,
@@ -113,7 +114,7 @@ export const Group = ({
     } if (additionalRowType === "free") {
       return (
         <Flex fontSize='xl' ml='10%'>
-          フリー　<Input fontSize='2xl' size='sm' maxWidth='150px' mr='10px' />
+          フリー　<Textarea fontSize='2xl' size='sm' maxWidth='150px' mr='10px' />
         </Flex>
       );
     }
