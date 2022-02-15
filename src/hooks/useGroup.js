@@ -11,11 +11,11 @@ export const useGroup = () => {
       eventList: eventList,
     };
     return (
-      setGroup([newGroupItem, ...eventList])
+      setGroup([newGroupItem, ...groupData])
     );
   }
-  const deleteGroupItem = (id,eventList) => {
-    return setGroup([...eventList].splice(id,1));
+  const deleteGroupItem = (id) => {
+    return setGroup([...groupData].splice(id,1));
   };
 
   return {

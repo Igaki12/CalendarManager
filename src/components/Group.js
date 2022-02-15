@@ -29,16 +29,22 @@ export const Group = ({
 }) => {
   const eventList = [
     {
+      id:1,
       title: "working at the cram school",
-      time: 10
+      time: 10,
+      check:true
     },
     {
+      id:2,
       title: "medical training",
-      time: 5
+      time: 5,
+      check:false
     },
     {
+      id:3,
       title: "sleep",
-      time: 8
+      time: 8,
+      check:true
     }
   ];
   let menuScheme = 'grey';
@@ -77,7 +83,7 @@ export const Group = ({
       <MenuList>
         <MenuOptionGroup title='Events' type='checkbox'>
            {eventList.map((value,index) => (
-             <MenuItemOption key={index} value={index}>{value.title}</MenuItemOption>
+             <MenuItemOption key={index} value={index} defaultChecked={value.check? true: false}>{value.title}</MenuItemOption>
              ))}
          </MenuOptionGroup>
        </MenuList>
