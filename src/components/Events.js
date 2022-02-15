@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Input, Spacer } from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Spacer,NumberInput,NumberInputField,NumberInputStepper,NumberIncrementStepper,NumberDecrementStepper } from "@chakra-ui/react";
 import { EditIcon, Search2Icon } from "@chakra-ui/icons";
 
 export const Events = ({ eventList }) => {
@@ -17,9 +17,18 @@ export const Events = ({ eventList }) => {
         <EditIcon mr={'1'} /> カレンダーの予定を取得
       </Box>
       <Box p={'2'}>
-        <Input type={'date'} fontSize='xl' />
-        <Spacer />から<Input placeholder='例)30' type={'number'} width='150px' fontSize={'xl'} mt='2' />日間
-        <Button fontSize={'2xl'} ml='2' colorScheme={'teal'}><Search2Icon /></Button>
+        <Input type={'date'} fontSize='xl' variant={'filled'} />
+        <Flex justifyContent={'right'} m='3'>
+          から
+          <NumberInput mt={'-1'} mr='2' ml='2'>
+            <NumberInputField width='150px' fontSize='xl' placeholder="例)30" />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>日間
+          <Button fontSize={'2xl'} ml='2' colorScheme={'teal'} mt='-1'><Search2Icon /></Button>
+          </Flex>
       </Box>
     </Box>
     <Box 
