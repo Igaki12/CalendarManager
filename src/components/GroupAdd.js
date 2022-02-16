@@ -1,17 +1,18 @@
 import { Box,Radio,RadioGroup,Stack,Input, Button, Flex } from "@chakra-ui/react";
 import { PlusSquareIcon, } from "@chakra-ui/icons";
-import { useGroup } from "../hooks/useGroup";
+import { useGroup,showGroupLists } from "../hooks/useGroup";
 import { useState,useRef } from "react";
 
 export const GroupAdd = ({eventList}) => {
-  const {addGroupItem} = useGroup();
+  const {addGroupItem,showGroupLists} = useGroup();
   const [type,setType] = useState('search');
   const inputEl = useRef(null);
   const handleAddGroupItem = () => {
-    console.log(`${type},${inputEl}`);
+    console.log(`${type},${inputEl.current.value}`);
     if(inputEl.current.value === "") return;
-    addGroupItem(type,inputEl,eventList[0]);
+    addGroupItem(type,inputEl.current.value,eventList[0]);
     inputEl.current.value = "";
+    showGroupLists();
   };
   return (
     <>

@@ -10,7 +10,7 @@ import {useGroup} from "../hooks/useGroup";
 
 function App() {
   const {toggleEventCheck} = useEvent();
-  const {addGroupItem,deleteGroupItem} = useGroup()
+  const {addGroupItem,deleteGroupItem} = useGroup();
   const total = 3000;
   const eventList = [
     {
@@ -83,6 +83,7 @@ function App() {
       <GroupAdd eventList={eventList} />
       {groupList.map((value,index) => (
         <Group 
+        id={value.id}
         key={index}
         groupType={value.groupType}
         groupTitle={value.groupTitle}

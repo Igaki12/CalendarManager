@@ -4,6 +4,13 @@ import {ulid} from "ulid";
 export const useGroup = () => {
   const [groupData,setGroup] = useState([]);
 
+  const countTotalMoney = () => {
+    
+  }
+  const showGroupLists = () => {
+    console.log(groupData);
+
+  }
   const addGroupItem = (type,title,eventList) => {
     const newGroupItem = {
       id: ulid(),
@@ -13,6 +20,8 @@ export const useGroup = () => {
       additionalRawType: 'none',
       totalMoney: 0,
     };
+    console.log(`${type},${title},${eventList}`);
+    setGroup([newGroupItem, ...groupData]);
     return (
       setGroup([newGroupItem, ...groupData])
     );
@@ -22,7 +31,8 @@ export const useGroup = () => {
   };
 
   return {
+    showGroupLists,
     addGroupItem,
     deleteGroupItem,
   }
-}
+};

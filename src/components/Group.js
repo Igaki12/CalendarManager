@@ -19,6 +19,7 @@ import {
   ChevronDownIcon,
   DeleteIcon
 } from "@chakra-ui/icons";
+import { ulid } from "ulid";
 export const Group = ({
   groupType,
   groupTitle,
@@ -26,7 +27,12 @@ export const Group = ({
   additionalRowType,
   toggleEventCheck,
   deleteGroupItem,
+  id,
 }) => {
+  const handleDeleteGroupItem = () => {
+    console.log("handleDeleteGroupItem(id):" + id);
+    return deleteGroupItem(id);
+  }
   const eventList = [
     {
       id:1,
@@ -73,7 +79,7 @@ export const Group = ({
       <MenuList type="checkbox">
         <MenuOptionGroup title='Events' type='checkbox'>
           {eventList.map((value,index) => (
-            <MenuItemOption key={index} value={index} isChecked={value.check? true: false} onClick={toggleEventCheck}>{value.title}</MenuItemOption>
+            <MenuItemOption key={index} value={index} checked={true} onClick={toggleEventCheck}>{value.title}</MenuItemOption>
         ))}
         </MenuOptionGroup>
       </MenuList>
@@ -133,11 +139,8 @@ export const Group = ({
         <EventList eventList={eventList} />
       </Menu>
       <Flex ml='10%' fontSize='xl'>個数　{eventList.length}</Flex>
-      <Flex ml='10%'fontSize='xl'>総時間　{eventHours(eventList)}</Flex>
-      <Flex mr={'10'}>
-        <AdditionalRow additionalRowType={additionalRowType} />
-        <Spacer /><Button variant={'ghost'}><DeleteIcon color={'grey'} onClick={deleteGroupItem} /></Button>
-      </Flex>
+      <Flex ml='10%'fontSize='xl' mr={'10'}>総時間　{eventHours(eventList)}<Spacer /><Button variant={'ghost'}onClick={handleDeleteGroupItem}><DeleteIcon color={'grey'}/></Button></Flex>
+      <AdditionalRow additionalRowType={additionalRowType} />
     </>
   );
 };
