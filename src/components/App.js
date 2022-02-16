@@ -80,7 +80,7 @@ function App() {
       {/* <InputDate /> */}
       <Events eventList={eventList} />
       {/* <App_calc /> */}
-      <GroupAdd addGroupItem={addGroupItem} />
+      <GroupAdd eventList={eventList} />
       {groupList.map((value,index) => (
         <Group 
         key={index}
