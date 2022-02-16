@@ -2,13 +2,17 @@ import { useState } from "react";
 export const useEvent = () => {
   const [eventData,setEvent] = useState([]);
 
-  const toggleEventItem = (id) => {
+  const toggleEventCheck = (id) => {
     const changingEvent = eventData.find((item) => item.id === id);
     changingEvent.check = !(changingEvent.check);
     const elseEvent = eventData.find((item) => item.id !== id);
     return setEvent([...elseEvent,changingEvent])
   }
-  return {
-    toggleEventItem,
+  const createNewEventList = (eventList) => {
+    setEvent([...eventList]);
   }
-}
+  return {
+    toggleEventCheck,
+    createNewEventList,
+  };
+};

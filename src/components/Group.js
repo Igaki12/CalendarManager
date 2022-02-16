@@ -7,11 +7,8 @@ import {
   Button,
   Input,
   MenuItemOption,
-  SliderFilledTrack,
-  SliderTrack,
-  Slider,
-  SliderThumb,
   Textarea,
+  Spacer,
 } from "@chakra-ui/react";
 import {
   SearchIcon,
@@ -19,13 +16,16 @@ import {
   CalendarIcon,
   AtSignIcon,
   InfoOutlineIcon,
-  ChevronDownIcon
+  ChevronDownIcon,
+  DeleteIcon
 } from "@chakra-ui/icons";
 export const Group = ({
   groupType,
   groupTitle,
   // eventList,
-  additionalRowType
+  additionalRowType,
+  toggleEventCheck,
+  deleteGroupItem,
 }) => {
   const eventList = [
     {
@@ -68,59 +68,48 @@ export const Group = ({
       </Flex>
     );
   };
-  // const EventList = (eventList) => {
-  //   return (
-  //     <MenuList minWidth="240px" type="checkbox">
-  //       {eventList.map((value,index) => (
-  //         <MenuItem key={index}>{value.title}</MenuItem>
-  //       ))}
-  //     </MenuList>
-  //   );
-  // };
-
-  const EventList = () => {
+  const EventList = ({eventList}) => {
     return (
-      <MenuList>
+      <MenuList type="checkbox">
         <MenuOptionGroup title='Events' type='checkbox'>
-           {eventList.map((value,index) => (
-             <MenuItemOption key={index} value={index} defaultChecked={value.check? true: false}>{value.title}</MenuItemOption>
-             ))}
-         </MenuOptionGroup>
-       </MenuList>
+          {eventList.map((value,index) => (
+            <MenuItemOption key={index} value={index} isChecked={value.check? true: false} onClick={toggleEventCheck}>{value.title}</MenuItemOption>
+        ))}
+        </MenuOptionGroup>
+      </MenuList>
+    );
+  };
 
-    )
-  }
+  // const EventList = () => {
+  //   return (
+  //     <MenuList>
+  //       <MenuOptionGroup title='Events' type='checkbox'>
+  //          {eventList.map((value,index) => (
+  //            <MenuItemOption key={index} value={index} isChecked={value.check? true: false} onClick={toggleEventCheck}>{value.title}</MenuItemOption>
+  //            ))}
+  //        </MenuOptionGroup>
+  //      </MenuList>
+
+  //   )
+  // }
   const AdditionalRow = ({additionalRowType}) => {
     if (additionalRowType === "perHour") {
       return (
-        <Flex maxW='sm' ml='10' mr={10} fontSize='xl'>
-          時給
-          <Slider defaultValue={1000} min={800} max={3000} step={100} maxWidth='200' ml={10}
-        // flex='1'
-        // focusThumbOnChange={false}
-        // value={value}
-        // onChange={handleChange}
-          >
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb fontSize='sm' boxSize='25px' 
-            // children={value} 
-             />
-          </Slider>
+        <Flex fontSize='xl' ml='10%'>
+          時給　<Input fontSize='xl' size='sm' type="number" maxWidth='100px' mr='10px' />円
         </Flex>
       );
     }
     if (additionalRowType === "perDay") {
       return (
         <Flex fontSize='xl' ml='10%'>
-          日給　<Input fontSize='2xl' size='sm' type="number" maxWidth='100px' mr='10px' />円
+          日給　<Input fontSize='xl' size='sm' type="number" maxWidth='100px' mr='10px' />円
         </Flex>
       );
     } if (additionalRowType === "free") {
       return (
-        <Flex fontSize='xl' ml='10%'>
-          フリー　<Textarea fontSize='2xl' size='sm' maxWidth='150px' mr='10px' />
+        <Flex fontSize='xl' ml='10%' lineHeight={'80px'}>
+          フリー　<Textarea size='sm' maxWidth='150px' mr='10px' h={'50px'} />
         </Flex>
       );
     }
@@ -145,7 +134,10 @@ export const Group = ({
       </Menu>
       <Flex ml='10%' fontSize='xl'>個数　{eventList.length}</Flex>
       <Flex ml='10%'fontSize='xl'>総時間　{eventHours(eventList)}</Flex>
-      <AdditionalRow additionalRowType={additionalRowType} />
+      <Flex mr={'10'}>
+        <AdditionalRow additionalRowType={additionalRowType} />
+        <Spacer /><Button variant={'ghost'}><DeleteIcon color={'grey'} onClick={deleteGroupItem} /></Button>
+      </Flex>
     </>
   );
 };

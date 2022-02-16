@@ -1,14 +1,17 @@
 import {useState} from "react";
+import {ulid} from "ulid";
 
 export const useGroup = () => {
   const [groupData,setGroup] = useState([]);
 
   const addGroupItem = (type,title,eventList) => {
     const newGroupItem = {
-      id: groupData.length,
+      id: ulid(),
       groupType: type,
       groupTitle: title,
       eventList: eventList,
+      additionalRawType: 'none',
+      totalMoney: 0,
     };
     return (
       setGroup([newGroupItem, ...groupData])

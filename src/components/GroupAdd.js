@@ -1,7 +1,7 @@
 import { Box,Radio,RadioGroup,Stack,Input, Button, Flex } from "@chakra-ui/react";
 import { PlusSquareIcon, } from "@chakra-ui/icons";
 
-export const GroupAdd = ({inputEl}) => {
+export const GroupAdd = ({addGroupItem}) => {
   return (
     <>
       <Box maxW='lg' borderWidth='1px' borderRadius='lg' m='1' mt='5' bgColor='orange.50'>
@@ -26,7 +26,7 @@ export const GroupAdd = ({inputEl}) => {
         </RadioGroup>
         <Flex>
           <Input ml='2' mb='3' pl='4' pr='4' variant='filled' placeholder='Search...' />
-          <Button colorScheme='red' m='2' mt='0' mb='5'><PlusSquareIcon fontSize={"2xl"} /></Button>
+          <Button colorScheme='red' m='2' mt='0' mb='5' onClick={addGroupItem}><PlusSquareIcon fontSize={"2xl"} /></Button>
         </Flex>
       </Box>
     </>
