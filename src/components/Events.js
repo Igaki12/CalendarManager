@@ -54,7 +54,7 @@ export const Events = ({ eventList }) => {
     m={2} mt='1' ml='50' mr='50' pl='1' pr='1'
     >
       {eventList.map((value,index) => (
-        <Flex key={index} color={"grey.900"} bgColor={"green.50"} mt='1' mb='1' pl='5' pr='5'>{value.time}<Spacer />{value.title}</Flex>
+        <Flex key={index} color={"grey.900"} bgColor={"green.50"} mt='1' mb='1' pl='5' pr='5'>{value.day}<Spacer />{value.title}</Flex>
       ))}
     </Box>
     </>

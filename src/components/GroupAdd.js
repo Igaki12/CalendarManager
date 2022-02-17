@@ -3,16 +3,20 @@ import { PlusSquareIcon, } from "@chakra-ui/icons";
 import { useGroup,showGroupLists } from "../hooks/useGroup";
 import { useState,useRef } from "react";
 
-export const GroupAdd = ({eventList}) => {
-  const {addGroupItem,showGroupLists} = useGroup();
+export const GroupAdd = ({eventList,addGroupItem}) => {
   const [type,setType] = useState('search');
   const inputEl = useRef(null);
   const handleAddGroupItem = () => {
     console.log(`${type},${inputEl.current.value}`);
     if(inputEl.current.value === "") return;
-    addGroupItem(type,inputEl.current.value,eventList[0]);
+    let addedEventList = eventList;
+    if(type === 'search'){
+      addedEventList = [...eventList].filter((event)=> event.title.indexOf(inputEl.current.value) !== -1);
+    }
+    
+    if(!addedEventList) return;
+    addGroupItem(type,inputEl.current.value,addedEventList);
     inputEl.current.value = "";
-    showGroupLists();
   };
   return (
     <>

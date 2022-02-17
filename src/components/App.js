@@ -6,71 +6,46 @@ import { GroupAdd } from "./GroupAdd";
 import {Events} from "./Events";
 import {useEvent} from "../hooks/useEvent.js";
 import {useGroup} from "../hooks/useGroup";
+import {useEffect} from "react";
 // import { App_calc } from "../apis/calendar.js";
 
 function App() {
-  const {toggleEventCheck} = useEvent();
-  const {addGroupItem,deleteGroupItem} = useGroup();
+  const {addGroupItem,deleteGroupItem,toggleEventCheck,showGroupList,calculateTotalMoney} = useGroup();
+  const {createNewEventList,showEventList} = useEvent();
   const total = 3000;
-  const eventList = [
-    {
-      title: "work at the cram school",
-      time: '12/10'
-    },
-    {
-      title: "medical training",
-      time: '12/11'
-    },
-    {
-      title: "sleep",
-      time: '12/12'
-    },
-    {
-      title: "home work",
-      time: '12/13'
-    },
-    {
-      title: "交通整理",
-      time: '12/14'
-    },
-    {
-      title: "garden work",
-      time: '12/13'
-    },
-    {
-      title: "sleep",
-      time: '12/13'
-    },
-    {
-      title: "sleep",
-      time: '12/13'
-    },
-    {
-      title: "sleep",
-      time: '12/13'
-    }
-  ];
-  const groupList = [
-    {
-      id:1,
-      groupType:'search',
-      groupTitle: 'work',
-      eventList:[eventList[0],eventList[3],eventList[5]],
-      additionalRowType: 'perHour',
-    },{
-      id:2,
-      groupType:'time',
-      groupTitle: 'daytime',
-      eventList:[eventList[0],eventList[1],eventList[2]],
-      additionalRowType: 'perDay',
-    },{
-      id:3,
-      groupType:'at',
-      groupTitle: 'central',
-      eventList:[eventList[0],eventList[1],eventList[2]],
-      additionalRowType: 'free',
-    }
-];
+  const eventList = showEventList();
+  if(showGroupList().length === 0){
+  // addGroupItem('search','work',[...eventList].splice(0,5));
+  addGroupItem('time','daytime',[...eventList].splice(1,4));
+  // addGroupItem('at','central',[...eventList].splice(2,3));
+  }
+  if(showGroupList().length === 1){
+    addGroupItem('search','work',[...eventList].splice(0,5))
+  }if(showGroupList().length === 2){
+    addGroupItem('at','central',[...eventList].splice(2,3))
+  }
+  const groupList = showGroupList();
+//   const groupList = [
+//     {
+//       id:1,
+//       groupType:'search',
+//       groupTitle: 'work',
+//       eventList:[eventList[0],eventList[3],eventList[5]],
+//       additionalRowType: 'perHour',
+//     },{
+//       id:2,
+//       groupType:'time',
+//       groupTitle: 'daytime',
+//       eventList:[eventList[0],eventList[1],eventList[2]],
+//       additionalRowType: 'perDay',
+//     },{
+//       id:3,
+//       groupType:'at',
+//       groupTitle: 'central',
+//       eventList:[eventList[0],eventList[1],eventList[2]],
+//       additionalRowType: 'free',
+//     }
+// ];
   return (
     <>
       <Box fontSize='3xl' color='purple' p='10px' fontWeight={'bold'}>
@@ -80,16 +55,15 @@ function App() {
       {/* <InputDate /> */}
       <Events eventList={eventList} />
       {/* <App_calc /> */}
-      <GroupAdd eventList={eventList} />
+      <GroupAdd eventList={eventList} addGroupItem={addGroupItem} />
       {groupList.map((value,index) => (
         <Group 
         id={value.id}
         key={index}
-        groupType={value.groupType}
-        groupTitle={value.groupTitle}
-        additionalRowType={value.additionalRowType}
+        group={value}
         toggleEventCheck={toggleEventCheck}
         deleteGroupItem={deleteGroupItem}
+        calculateTotalMoney={calculateTotalMoney}
          />
       ))}
       </Box>

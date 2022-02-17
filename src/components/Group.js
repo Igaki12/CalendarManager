@@ -3,10 +3,10 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuOptionGroup,
+  MenuGroup,
   Button,
   Input,
-  MenuItemOption,
+  MenuItem,
   Textarea,
   Spacer,
 } from "@chakra-ui/react";
@@ -17,47 +17,40 @@ import {
   AtSignIcon,
   InfoOutlineIcon,
   ChevronDownIcon,
-  DeleteIcon
+  DeleteIcon,
+  CheckIcon,
 } from "@chakra-ui/icons";
-import { ulid } from "ulid";
+import { useRef } from "react";
 export const Group = ({
-  groupType,
-  groupTitle,
-  // eventList,
-  additionalRowType,
   toggleEventCheck,
   deleteGroupItem,
-  id,
+  group,
+  calculateTotalMoney,
 }) => {
+  const inputWage = useRef(null);
+  // const {toggleEventCheck,createNewEventList,showEventList} = useEvent();
   const handleDeleteGroupItem = () => {
-    console.log("handleDeleteGroupItem(id):" + id);
-    return deleteGroupItem(id);
+    console.log("handleDeleteGroupItem(id):" + group.id);
+    return deleteGroupItem(group.id);
   }
-  const eventList = [
-    {
-      id:1,
-      title: "working at the cram school",
-      time: 10,
-      check:true
-    },
-    {
-      id:2,
-      title: "medical training",
-      time: 5,
-      check:false
-    },
-    {
-      id:3,
-      title: "sleep",
-      time: 8,
-      check:true
-    }
-  ];
+
+  const handleCalculateTotalMoney = (groupId) => {
+    console.log('inputWage:' + inputWage.current.value);
+    calculateTotalMoney(groupId,inputWage.current.value);
+    console.log(group.totalMoney);
+  }
+  const handleToggleEventCheck = (index) => {
+    console.log(`id:${group.id} eventList[0].id:${group.eventList[index].id}`);
+    // toggleEventCheck(id,eventList[index].id)
+    return toggleEventCheck(group.id,group.eventList[index].id);
+  }
+  // createNewEventList(eventListOrigin);
+  // let eventList = showEventList();
   let menuScheme = 'grey';
-  if (groupType === 'search') menuScheme = 'blue';
-  else if (groupType === "time") menuScheme = 'purple';
-  else if (groupType === "calendar") menuScheme = 'yellow';
-  else if (groupType === "at") menuScheme = 'red';
+  if (group.groupType === 'search') menuScheme = 'blue';
+  else if (group.groupType === "time") menuScheme = 'purple';
+  else if (group.groupType === "calendar") menuScheme = 'yellow';
+  else if (group.groupType === "at") menuScheme = 'red';
 
   const TitleIcon = ({groupType}) => {
     if (groupType === 'search')  return <SearchIcon mt='1' />;
@@ -77,11 +70,11 @@ export const Group = ({
   const EventList = ({eventList}) => {
     return (
       <MenuList type="checkbox">
-        <MenuOptionGroup title='Events' type='checkbox'>
-          {eventList.map((value,index) => (
-            <MenuItemOption key={index} value={index} checked={true} onClick={toggleEventCheck}>{value.title}</MenuItemOption>
+        <MenuGroup title='Events' type='checkbox'>
+          {eventList.map((event,index) => (
+            <MenuItem key={index} value={index} onClick={() => handleToggleEventCheck(index)}>{(group.inVisibleEventId.indexOf(event.id) === -1)? <CheckIcon /> : ' ' }<Spacer />{event.title}</MenuItem>
         ))}
-        </MenuOptionGroup>
+        </MenuGroup>
       </MenuList>
     );
   };
@@ -98,21 +91,24 @@ export const Group = ({
 
   //   )
   // }
-  const AdditionalRow = ({additionalRowType}) => {
-    if (additionalRowType === "perHour") {
+  const AdditionalRow = ({group}) => {
+    console.log(`additionalRowType:`);
+    console.log(group.additionalRowType);
+    if (group.additionalRowType === "perHour") {
       return (
         <Flex fontSize='xl' ml='10%'>
-          時給　<Input fontSize='xl' size='sm' type="number" maxWidth='100px' mr='10px' />円
+          時給　<Input fontSize='xl' size='sm' type="number" maxWidth='100px' mr='10px' 
+                onInput={() => handleCalculateTotalMoney(group.id)} ref={inputWage} />円
         </Flex>
       );
     }
-    if (additionalRowType === "perDay") {
+    if (group.additionalRowType === "perDay") {
       return (
         <Flex fontSize='xl' ml='10%'>
           日給　<Input fontSize='xl' size='sm' type="number" maxWidth='100px' mr='10px' />円
         </Flex>
       );
-    } if (additionalRowType === "free") {
+    } if (group.additionalRowType === "free") {
       return (
         <Flex fontSize='xl' ml='10%' lineHeight={'80px'}>
           フリー　<Textarea size='sm' maxWidth='150px' mr='10px' h={'50px'} />
@@ -123,24 +119,17 @@ export const Group = ({
       return null;
     }
   };
-  let eventHours = (eventList) => {
-    let total = 0;
-    eventList.forEach((list) => {
-      total += list.time;
-    });
-    return total;
-  };
   return (
     <>
       <Menu closeOnSelect={false}>
         <MenuButton  colorScheme={menuScheme} as={Button} rightIcon={<ChevronDownIcon />} mt='10' ml='3' mr='3'>
-          <GroupTitle groupType={groupType} groupTitle={groupTitle} />
+          <GroupTitle groupType={group.groupType} groupTitle={group.groupTitle} />
         </MenuButton>
-        <EventList eventList={eventList} />
+        <EventList eventList={group.eventList} group={group} />
       </Menu>
-      <Flex ml='10%' fontSize='xl'>個数　{eventList.length}</Flex>
-      <Flex ml='10%'fontSize='xl' mr={'10'}>総時間　{eventHours(eventList)}<Spacer /><Button variant={'ghost'}onClick={handleDeleteGroupItem}><DeleteIcon color={'grey'}/></Button></Flex>
-      <AdditionalRow additionalRowType={additionalRowType} />
+      <Flex ml='10%' fontSize='xl'>個数　{group.eventList.filter(event => group.inVisibleEventId.indexOf(event.id) === -1).length}　/{group.eventList.length}</Flex>
+      <Flex ml='10%'fontSize='xl' mr={'10'}>総時間　{group.eventList.filter(event => group.inVisibleEventId.indexOf(event.id) === -1).reduce((sum,event) => sum+event.time,0)}<Spacer /><Button variant={'ghost'}onClick={handleDeleteGroupItem}><DeleteIcon color={'grey'}/></Button></Flex>
+      <AdditionalRow group={group} />
     </>
   );
 };
