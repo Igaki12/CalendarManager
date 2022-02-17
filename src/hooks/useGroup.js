@@ -25,7 +25,7 @@ export const useGroup = () => {
 
   const toggleEventCheck = (groupId,eventId) => {
     let changedGroupData = [...groupData];
-    console.log(groupData.find(item => item.id === groupId).inVisibleEventId.indexOf(eventId));
+    // console.log(groupData.find(item => item.id === groupId).inVisibleEventId.indexOf(eventId));
     if(groupData.find(item => item.id === groupId).inVisibleEventId.indexOf(eventId) === -1){
         changedGroupData.find((item)=> item.id === groupId).inVisibleEventId.push(eventId);
         // changedGroupData.find((item)=> item.id === groupId).totalHours 
@@ -43,7 +43,6 @@ export const useGroup = () => {
     return setGroup(changedGroupData);
   }
   const showGroupList = () => {
-    console.log(groupData);
     return groupData;
   }
   const calculateTotalMoney = (groupId,inputWage) => {
@@ -52,9 +51,29 @@ export const useGroup = () => {
     changedGroupData.find((group)=> group.id === groupId).totalMoney
     = group.eventList.filter(event => group.inVisibleEventId.indexOf(event.id) === -1).reduce((sum,event) => sum+event.time,0)
     * inputWage;
+    return setGroup(changedGroupData);
+  }
+  const calculateTotalSalary = (groupId,inputSalary) => {
+    let changedGroupData = [...groupData];
+    const group = changedGroupData.find((group)=> group.id === groupId);
+    changedGroupData.find((group)=> group.id === groupId).totalMoney
+    = group.eventList.filter(event => group.inVisibleEventId.indexOf(event.id) === -1).length
+    * inputSalary;
+    return setGroup(changedGroupData);
+  }
+  const toggleAdditionalRowType = (groupId) => {
+    let changedGroupData = [...groupData];
+    if(groupData.find(group => group.id === groupId).additionalRowType === 'perHour'){
+      changedGroupData.find(group => group.id === groupId).additionalRowType = 'perDay';
+    }else{
+      changedGroupData.find(group => group.id === groupId).additionalRowType = 'perHour';
+    }
+    return setGroup(changedGroupData);
   }
 
   return {
+    toggleAdditionalRowType,
+    calculateTotalSalary,
     calculateTotalMoney,
     toggleEventCheck,
     addGroupItem,

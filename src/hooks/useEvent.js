@@ -57,20 +57,20 @@ export const useEvent = () => {
     }
   ]);
 
-  const toggleEventCheck = (id) => {
-    console.log("eventData:");
-    console.log(eventData);
-    const changingEvent = eventData.find((item) => item.id === id);
-    console.log(changingEvent);
-    changingEvent.check = !(changingEvent.check);
-    const elseEvent = eventData.find((item) => item.id !== id);
-    return setEvent([ ...elseEvent ,changingEvent])
-  }
+  // const toggleEventCheck = (id) => {
+  //   console.log("eventData:");
+  //   console.log(eventData);
+  //   const changingEvent = eventData.find((item) => item.id === id);
+  //   console.log(changingEvent);
+  //   changingEvent.check = !(changingEvent.check);
+  //   const elseEvent = eventData.find((item) => item.id !== id);
+  //   return setEvent([ ...elseEvent ,changingEvent])
+  // }
   const createNewEventList = (eventList) => {
     setEvent([...eventList]);
   }
   const showEventList = () => {
-    console.log(eventData);
+    // console.log(eventData);
     return eventData;
   }
   return {

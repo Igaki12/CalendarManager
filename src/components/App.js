@@ -6,13 +6,11 @@ import { GroupAdd } from "./GroupAdd";
 import {Events} from "./Events";
 import {useEvent} from "../hooks/useEvent.js";
 import {useGroup} from "../hooks/useGroup";
-import {useEffect} from "react";
 // import { App_calc } from "../apis/calendar.js";
 
 function App() {
-  const {addGroupItem,deleteGroupItem,toggleEventCheck,showGroupList,calculateTotalMoney} = useGroup();
+  const {addGroupItem,deleteGroupItem,toggleEventCheck,showGroupList,calculateTotalMoney,calculateTotalSalary,toggleAdditionalRowType} = useGroup();
   const {createNewEventList,showEventList} = useEvent();
-  const total = 3000;
   const eventList = showEventList();
   if(showGroupList().length === 0){
   // addGroupItem('search','work',[...eventList].splice(0,5));
@@ -64,11 +62,13 @@ function App() {
         toggleEventCheck={toggleEventCheck}
         deleteGroupItem={deleteGroupItem}
         calculateTotalMoney={calculateTotalMoney}
+        calculateTotalSalary={calculateTotalSalary}
+        toggleAdditionalRowType={toggleAdditionalRowType}
          />
       ))}
       </Box>
       <Flex zIndex={'1000'} width='100%' pt='1' pb='1' pl='10' fontSize='2xl' justifyContent='center' fontWeight='bold' bgColor='green.700' color='white' position='fixed' bottom='0'>
-        合計　{total}円
+        合計　{groupList.reduce((sum,group) => sum + group.totalMoney,0).toLocaleString()}円
         <Spacer />
         <Button colorScheme='white' variant='outline' mr='4'>
           <DownloadIcon />

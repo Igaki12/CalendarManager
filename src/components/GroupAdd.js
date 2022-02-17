@@ -1,11 +1,12 @@
-import { Box,Radio,RadioGroup,Stack,Input, Button, Flex } from "@chakra-ui/react";
-import { PlusSquareIcon, } from "@chakra-ui/icons";
-import { useGroup,showGroupLists } from "../hooks/useGroup";
+import { Box,Radio,RadioGroup,Stack,Input, Button, Flex,MenuButton,Menu,Spacer,MenuItem,MenuGroup,MenuList } from "@chakra-ui/react";
+import { PlusSquareIcon,ChevronDownIcon,CalendarIcon,AtSignIcon,SearchIcon,TimeIcon,InfoOutlineIcon } from "@chakra-ui/icons";
 import { useState,useRef } from "react";
 
 export const GroupAdd = ({eventList,addGroupItem}) => {
   const [type,setType] = useState('search');
   const inputEl = useRef(null);
+  const [groupTitle,setGroupTitle] = useState('');
+  const [caution,setCaution] = useState('　');
   const handleAddGroupItem = () => {
     console.log(`${type},${inputEl.current.value}`);
     if(inputEl.current.value === "") return;
@@ -13,10 +14,76 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
     if(type === 'search'){
       addedEventList = [...eventList].filter((event)=> event.title.indexOf(inputEl.current.value) !== -1);
     }
-    
-    if(!addedEventList) return;
+    // ここに今後場所等についての挙動を追加
+    console.log(addedEventList);
+    if(addedEventList.length === 0) return setCaution('条件に合うイベントが見つかりません');
     addGroupItem(type,inputEl.current.value,addedEventList);
     inputEl.current.value = "";
+    setGroupTitle('');
+  };
+  const predictGroup = () => {
+    console.log(`predictGroup:${type},${inputEl.current.value}`);
+    setGroupTitle(inputEl.current.value);
+    let addedEventList = eventList;
+    if(type === 'search'){
+      addedEventList = [...eventList].filter((event)=> event.title.indexOf(inputEl.current.value) !== -1);
+    }
+    // ここに今後場所等についての挙動を追加
+    console.log(addedEventList);
+    if(addedEventList.length === 0) setCaution('条件に合うイベントが見つかりません');
+    else setCaution('');
+  };
+
+let predictEventList = [...eventList];
+  if(type === 'search'){
+    predictEventList = [...eventList].filter((event)=> event.title.indexOf(groupTitle) !== -1);
+  }
+  // ここに今後場所などについての挙動を追加
+  const PredictiveGroup = ({eventList,groupTitle}) => {
+    const totalHours = eventList.reduce((sum,event) => sum + event.time,0);
+    let menuScheme = 'grey';
+    if (type === 'search') menuScheme = 'blue';
+    else if (type === "time") menuScheme = 'purple';
+    else if (type === "calendar") menuScheme = 'yellow';
+    else if (type === "at") menuScheme = 'red';
+    const TitleIcon = ({groupType}) => {
+      if (groupType === 'search')  return <SearchIcon mt='1' />;
+      else if (groupType === "time") return <TimeIcon mt='1' />;
+      else if (groupType === "calendar") return <CalendarIcon mt='1' />;
+      else if (groupType === "at") return <AtSignIcon mt='1' />;
+      else return <InfoOutlineIcon mt='1' />;
+    };
+    const GroupTitle = ({groupType, groupTitle}) => {
+      return (
+        <Flex minWidth='300px' fontSize='2xl' pl='10%' >
+          <TitleIcon groupType={groupType} />
+          　{groupTitle}
+        </Flex>
+      );
+    };
+    const EventList = ({eventList}) => {
+      return (
+        <MenuList type="checkbox">
+          <MenuGroup title='Events' type='checkbox'>
+            {eventList.map((event,index) => (
+              <MenuItem key={index} value={index}>{event.title}</MenuItem>
+          ))}
+          </MenuGroup>
+        </MenuList>
+      );
+    };
+    return(
+      <Box display={(groupTitle ==='')? 'none':'display'} >
+      <Menu closeOnSelect={false}>
+        <MenuButton variant='outline' colorScheme={menuScheme} as={Button} rightIcon={<ChevronDownIcon />} mt='-2' ml='3' mr='3'>
+          <GroupTitle groupType={type} groupTitle={groupTitle} />
+        </MenuButton>
+        <EventList eventList={eventList} />
+      </Menu>
+      <Flex ml='10%' fontSize='xl' color={'grey'}>個数　{eventList.length}</Flex>
+      <Flex ml='10%'fontSize='xl' mr={'10'} color='grey'>総時間　{totalHours}<Spacer /></Flex>
+      </Box>
+      );
   };
   return (
     <>
@@ -26,7 +93,7 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
       </Box>
         <RadioGroup defaultValue='1' p='1'pt='3' pb='4' onChange={setType} value={type}>
           <Stack spacing={5} direction='row' justifyContent='center'>
-            <Radio colorScheme='blue' value='search'>
+            <Radio colorScheme='blue' value='search' checked>
               検索
             </Radio>
             <Radio colorScheme='purple' value='time'>
@@ -35,15 +102,17 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
             <Radio colorScheme='yellow' value='at'>
               場所
             </Radio>
-            <Radio colorScheme='red' value='calendar'>
+            <Radio colorScheme='red' value='calendar' isDisabled>
               期間
             </Radio>
           </Stack>
         </RadioGroup>
         <Flex>
-          <Input ml='2' mb='3' pl='4' pr='4' variant='filled' placeholder='Search...' ref={inputEl} />
+          <Input ml='3' mb='3' pl='4' pr='4' variant='filled' placeholder='Search...' ref={inputEl} onChange={predictGroup} />
           <Button colorScheme='red' m='2' mt='0' mb='5' onClick={handleAddGroupItem}><PlusSquareIcon fontSize={"2xl"} /></Button>
         </Flex>
+        <PredictiveGroup  eventList={predictEventList} groupTitle={groupTitle} />
+        <Flex pb={'5'} color='tomato' fontWeight={'bold'}><Spacer />{caution}<Spacer/></Flex>
       </Box>
     </>
   )
