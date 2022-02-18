@@ -59,13 +59,13 @@ export const Group = ({
   let menuScheme = 'grey';
   if (group.groupType === 'search') menuScheme = 'blue';
   else if (group.groupType === "time") menuScheme = 'purple';
-  else if (group.groupType === "calendar") menuScheme = 'yellow';
+  else if (group.groupType === "weekend") menuScheme = 'yellow';
   else if (group.groupType === "at") menuScheme = 'red';
 
   const TitleIcon = ({groupType}) => {
     if (groupType === 'search')  return <SearchIcon mt='1' />;
     else if (groupType === "time") return <TimeIcon mt='1' />;
-    else if (groupType === "calendar") return <CalendarIcon mt='1' />;
+    else if (groupType === "weekend") return <CalendarIcon mt='1' />;
     else if (groupType === "at") return <AtSignIcon mt='1' />;
     else return <InfoOutlineIcon mt='1' />;
   };

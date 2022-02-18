@@ -10,6 +10,7 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
   const handleAddGroupItem = () => {
     console.log(`${type},${inputEl.current.value}`);
     if(inputEl.current.value === "") return;
+    if(inputEl.current.value.length > 14) return;
     let addedEventList = eventList;
     if(type === 'search'){
       addedEventList = [...eventList].filter((event)=> event.title.indexOf(inputEl.current.value) !== -1);
@@ -31,6 +32,7 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
     // ここに今後場所等についての挙動を追加
     console.log(addedEventList);
     if(addedEventList.length === 0) setCaution('条件に合うイベントが見つかりません');
+    else if(inputEl.current.value.length > 14) setCaution('文字数が多すぎます');
     else setCaution('');
   };
 
@@ -44,12 +46,12 @@ let predictEventList = [...eventList];
     let menuScheme = 'grey';
     if (type === 'search') menuScheme = 'blue';
     else if (type === "time") menuScheme = 'purple';
-    else if (type === "calendar") menuScheme = 'yellow';
+    else if (type === "weekend") menuScheme = 'yellow';
     else if (type === "at") menuScheme = 'red';
     const TitleIcon = ({groupType}) => {
       if (groupType === 'search')  return <SearchIcon mt='1' />;
       else if (groupType === "time") return <TimeIcon mt='1' />;
-      else if (groupType === "calendar") return <CalendarIcon mt='1' />;
+      else if (groupType === "weekend") return <CalendarIcon mt='1' />;
       else if (groupType === "at") return <AtSignIcon mt='1' />;
       else return <InfoOutlineIcon mt='1' />;
     };
@@ -96,14 +98,14 @@ let predictEventList = [...eventList];
             <Radio colorScheme='blue' value='search' checked>
               検索
             </Radio>
-            <Radio colorScheme='purple' value='time'>
-              時間帯
-            </Radio>
-            <Radio colorScheme='yellow' value='at'>
+            <Radio colorScheme='purple' value='at'>
               場所
             </Radio>
-            <Radio colorScheme='red' value='calendar' isDisabled>
-              期間
+            <Radio colorScheme='yellow' value='time'>
+              夜間のみ
+            </Radio>
+            <Radio colorScheme='red' value='weekend' isDisabled>
+              土日のみ
             </Radio>
           </Stack>
         </RadioGroup>
