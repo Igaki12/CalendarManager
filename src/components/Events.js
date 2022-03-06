@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Input, Spacer,NumberInput,NumberInputField,NumberInputStepper,NumberIncrementStepper,NumberDecrementStepper } from "@chakra-ui/react";
 import { EditIcon, Search2Icon } from "@chakra-ui/icons";
+import { AppCalc } from "../apis/calendar";
 
 export const Events = ({ eventList }) => {
   return (
@@ -27,7 +28,7 @@ export const Events = ({ eventList }) => {
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>日間
-          <Button fontSize={'2xl'} ml='2' colorScheme={'teal'} mt='-1'><Search2Icon /></Button>
+          <AppCalc />
           </Flex>
       </Box>
     </Box>

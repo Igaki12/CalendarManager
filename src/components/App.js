@@ -6,7 +6,7 @@ import { GroupAdd } from "./GroupAdd";
 import {Events} from "./Events";
 import {useEvent} from "../hooks/useEvent.js";
 import {useGroup} from "../hooks/useGroup";
-// import { App_calc } from "../apis/calendar.js";
+import { AppCalc } from "../apis/calendar.js";
 
 function App() {
   const {addGroupItem,deleteGroupItem,toggleEventCheck,showGroupList,calculateTotalMoney,calculateTotalSalary,toggleAdditionalRowType} = useGroup();
@@ -52,7 +52,7 @@ function App() {
       <Box width='100%' minHeight='100vh' paddingBottom='300px'>
       {/* <InputDate /> */}
       <Events eventList={eventList} />
-      {/* <App_calc /> */}
+      {/* <AppCalc /> */}
       <GroupAdd eventList={eventList} addGroupItem={addGroupItem} />
       {groupList.map((value,index) => (
         <Group 
