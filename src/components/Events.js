@@ -9,6 +9,12 @@ export const Events = ({createNewEventList,eventData,deleteAllGroupItem }) => {
   const today = `${('0000' + (thisDate).getFullYear()).slice(-4)}-${('00' + ((thisDate).getMonth() + 1)).slice(-2)}-${('00' + ((thisDate).getDate())).slice(-2)}`;
   const startDate = useRef({value: today});
   const range = useRef({value: 30});
+  const getStartDate = () => {
+    return startDate.current.value;
+  }
+  const getRange = () => {
+    return range.current.value;
+  }
   return (
     <>
     <Box fontSize={'xl'}
@@ -39,8 +45,8 @@ export const Events = ({createNewEventList,eventData,deleteAllGroupItem }) => {
             createNewEventList={createNewEventList}
             eventData={eventData}
             deleteAllGroupItem={deleteAllGroupItem}
-            startDate={startDate.current.value}
-            range={range.current.value}
+            getStartDate={getStartDate}
+            getRange={getRange}
             />
           </Flex>
       </Box>

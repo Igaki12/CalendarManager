@@ -1,8 +1,10 @@
 import { Search2Icon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 import ApiCalendar from "react-google-calendar-api";
-export function AppCalc({eventData,createNewEventList,deleteAllGroupItem,startDate,range}) {
+export function AppCalc({eventData,createNewEventList,deleteAllGroupItem,getStartDate,getRange}) {
   const getEvents = async () => {
+    let startDate = getStartDate();
+    let range = getRange();
     console.log("startDate:",startDate , "range:",range);
     let TimeMinDate = new Date(parseInt(startDate.split("-")[0]),parseInt(startDate.split("-")[1] -1),parseInt(startDate.split("-")[2]));
 
