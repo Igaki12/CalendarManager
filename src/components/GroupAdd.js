@@ -13,7 +13,7 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
     if(inputEl.current.value.length > 14) return;
     let addedEventList = eventList;
     if(type === 'search'){
-      addedEventList = [...eventList].filter((event)=> event.title.indexOf(inputEl.current.value) !== -1);
+      addedEventList = [...eventList].filter((event)=> event.summary.indexOf(inputEl.current.value) !== -1);
     }
     // ここに今後場所等についての挙動を追加
     console.log(addedEventList);
@@ -27,7 +27,7 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
     setGroupTitle(inputEl.current.value);
     let addedEventList = eventList;
     if(type === 'search'){
-      addedEventList = [...eventList].filter((event)=> event.title.indexOf(inputEl.current.value) !== -1);
+      addedEventList = [...eventList].filter((event)=> event.summary.indexOf(inputEl.current.value) !== -1);
     }
     // ここに今後場所等についての挙動を追加
     console.log(addedEventList);
@@ -38,7 +38,7 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
 
 let predictEventList = [...eventList];
   if(type === 'search'){
-    predictEventList = [...eventList].filter((event)=> event.title.indexOf(groupTitle) !== -1);
+    predictEventList = [...eventList].filter((event)=> event.summary.indexOf(groupTitle) !== -1);
   }
   // ここに今後場所などについての挙動を追加
   const PredictiveGroup = ({eventList,groupTitle}) => {
@@ -68,7 +68,7 @@ let predictEventList = [...eventList];
         <MenuList type="checkbox">
           <MenuGroup title='Events' type='checkbox'>
             {eventList.map((event,index) => (
-              <MenuItem key={index} value={index}>{event.title}</MenuItem>
+              <MenuItem key={index} value={index}>{event.summary}</MenuItem>
           ))}
           </MenuGroup>
         </MenuList>

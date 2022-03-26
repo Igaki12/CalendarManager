@@ -70,6 +70,10 @@ export const useGroup = () => {
     }
     return setGroup(changedGroupData);
   }
+  const deleteAllGroupItem = () => {
+    setGroup([]);
+    return ;
+  }
 
   return {
     toggleAdditionalRowType,
@@ -78,6 +82,7 @@ export const useGroup = () => {
     toggleEventCheck,
     addGroupItem,
     deleteGroupItem,
-    showGroupList,
-  }
+    groupData,
+    deleteAllGroupItem,
+    }
 };

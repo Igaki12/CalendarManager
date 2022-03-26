@@ -3,58 +3,17 @@ export const useEvent = () => {
   const [eventData,setEvent] = useState([
     {
       id:1,
-      title: "work at the cram school",
-      day: '12/10',
+      summary: "予定を取得しよう",
+      start:{
+        dateTime: '2021-12-10T00:00:00+09:00',
+        timeZone: 'Asia/Tokyo'
+      },
+      end:{
+        dateTime: '2021-12-10T05:00:00+09:00',
+        timeZone: 'Asia/Tokyo'
+      },
       time:5,
     },
-    {
-      id:2,
-      title: "medical training",
-      day: '12/11',
-      time:4,
-    },
-    {
-      id:3,
-      title: "sleep",
-      day: '12/12',
-      time:8,
-    },
-    {
-      id:4,
-      title: "home work",
-      day: '12/13',
-      time:2,
-    },
-    {
-      id:5,
-      title: "交通整理",
-      day: '12/14',
-      time:7,
-    },
-    {
-      id:6,
-      title: "garden work",
-      day: '12/13',
-      time:6,
-    },
-    {
-      id:7,
-      title: "sleep",
-      day: '12/13',
-      time:5,
-    },
-    {
-      id:8,
-      title: "sleep",
-      day: '12/13',
-      time:4,
-    },
-    {
-      id:9,
-      title: "sleep",
-      day: '12/13',
-      time:3,
-    }
   ]);
 
   // const toggleEventCheck = (id) => {
@@ -67,7 +26,25 @@ export const useEvent = () => {
   //   return setEvent([ ...elseEvent ,changingEvent])
   // }
   const createNewEventList = (eventList) => {
-    setEvent([...eventList]);
+    let newEventList = eventList.map((event,index)=> {
+      let startDate = new Date(event.start.dateTime.split("-")[0]
+      , parseInt(event.start.dateTime.split("-")[1]) - 1
+      , parseInt(event.start.dateTime.split("-")[2].split("T")[0])
+      , parseInt(event.start.dateTime.split("T")[1].split(":")[0])
+      , parseInt(event.start.dateTime.split(":")[1])
+      , parseInt(event.start.dateTime.split(":")[2].split("+")));
+      let endDate = new Date(event.end.dateTime.split("-")[0]
+      , parseInt(event.end.dateTime.split("-")[1]) - 1
+      , parseInt(event.end.dateTime.split("-")[2].split("T")[0])
+      , parseInt(event.end.dateTime.split("T")[1].split(":")[0])
+      , parseInt(event.end.dateTime.split(":")[1])
+      , parseInt(event.end.dateTime.split(":")[2].split("+")));
+      event.time = (endDate.getTime() - startDate.getTime())/(60*60*1000);
+      return event;
+    });
+    console.log(newEventList);
+    // setEvent([...eventList]);
+    setEvent([...newEventList]);
   }
   const showEventList = () => {
     // console.log(eventData);
@@ -77,5 +54,6 @@ export const useEvent = () => {
     showEventList,
     // toggleEventCheck,
     createNewEventList,
+    eventData,
   };
 };
