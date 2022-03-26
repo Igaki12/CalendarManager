@@ -29,6 +29,20 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
     if(type === 'search'){
       addedEventList = [...eventList].filter((event)=> event.summary.indexOf(inputEl.current.value) !== -1);
     }
+    if(type === 'weekend'){
+      addedEventList = [...eventList].filter((event)=> {
+        let weekendFlag = 0;
+        let t = event.startDateTime;
+        while(t.getTime() < event.endDateTime.getTime()){
+          if(t.getDay() === 0 || t.getDay() === 6){
+            weekendFlag = 1;
+            break;
+          }
+          t.setMinutes(t.getMinutes() + 5);
+        }
+        return weekendFlag === 1;
+      })
+    }
     // ここに今後場所等についての挙動を追加
     console.log(addedEventList);
     if(addedEventList.length === 0) setCaution('条件に合うイベントが見つかりません');
@@ -101,10 +115,10 @@ let predictEventList = [...eventList];
             <Radio colorScheme='purple' value='at'>
               場所
             </Radio>
-            <Radio colorScheme='yellow' value='time'>
+            <Radio colorScheme='yellow' value='time' isDisabled>
               夜間のみ
             </Radio>
-            <Radio colorScheme='red' value='weekend' isDisabled>
+            <Radio colorScheme='red' value='weekend'>
               土日のみ
             </Radio>
           </Stack>
