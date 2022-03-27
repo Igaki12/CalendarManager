@@ -1,4 +1,4 @@
-import { Box,Radio,RadioGroup,Stack,Input, Button, Flex,MenuButton,Menu,Spacer,MenuItem,MenuGroup,MenuList } from "@chakra-ui/react";
+import { Box,Radio,RadioGroup,Stack,Input, Button, Flex,MenuButton,Menu,Spacer,MenuItem,MenuGroup,MenuList, Checkbox } from "@chakra-ui/react";
 import { PlusSquareIcon,ChevronDownIcon,CalendarIcon,AtSignIcon,SearchIcon,TimeIcon,InfoOutlineIcon } from "@chakra-ui/icons";
 import { useState,useRef } from "react";
 
@@ -107,20 +107,26 @@ let predictEventList = [...eventList];
       <Box bg='brown' w='100%' p='2' color='white' fontSize='2xl' pl='5'>
         ＋ イベントグループを追加
       </Box>
-        <RadioGroup defaultValue='1' p='1'pt='3' pb='4' onChange={setType} value={type}>
+        <RadioGroup defaultValue='1' p='1' pt='3' pb={'4'} onChange={setType} value={type}>
           <Stack spacing={5} direction='row' justifyContent='center'>
             <Radio colorScheme='blue' value='search' checked>
               検索
             </Radio>
-            <Radio colorScheme='purple' value='at'>
+            <Radio colorScheme='yellow' value='at'>
               場所
             </Radio>
-            <Radio colorScheme='yellow' value='time' isDisabled>
+            {/* <Radio colorScheme='yellow' value='time' isDisabled>
               夜間のみ
             </Radio>
             <Radio colorScheme='red' value='weekend'>
               土日のみ
-            </Radio>
+            </Radio> */}
+            <Checkbox colorScheme='purple'>
+              夜間のみ
+            </Checkbox>
+            <Checkbox colorScheme={'red'}>
+              土日のみ
+            </Checkbox>
           </Stack>
         </RadioGroup>
         <Flex>
