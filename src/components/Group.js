@@ -57,14 +57,18 @@ export const Group = ({
   }
   let menuScheme = 'grey';
   if (group.groupType === 'search') menuScheme = 'blue';
-  else if (group.groupType === "time") menuScheme = 'purple';
-  else if (group.groupType === "weekend") menuScheme = 'red';
+  // else if (group.groupType === "time") menuScheme = 'purple';
+  // else if (group.groupType === "weekend") menuScheme = 'red';
   else if (group.groupType === "at") menuScheme = 'yellow';
+  else if (group.groupType === "all") menuScheme = 'green';
+  if(group.weekendOnly) menuScheme = 'red';
+  if(group.nightOnly) menuScheme = 'purple';
+  if(group.weekendOnly && group.nightOnly) menuScheme = 'brown';
 
   const TitleIcon = ({groupType}) => {
     if (groupType === 'search')  return <SearchIcon mt='1' />;
-    else if (groupType === "time") return <TimeIcon mt='1' />;
-    else if (groupType === "weekend") return <CalendarIcon mt='1' />;
+    // else if (groupType === "time") return <TimeIcon mt='1' />;
+    // else if (groupType === "weekend") return <CalendarIcon mt='1' />;
     else if (groupType === "at") return <AtSignIcon mt='1' />;
     else return <InfoOutlineIcon mt='1' />;
   };
@@ -126,7 +130,7 @@ export const Group = ({
         <EventList eventList={group.eventList} group={group} />
       </Menu>
       <Flex ml='10%' fontSize='xl'>個数　{group.eventList.filter(event => group.inVisibleEventId.indexOf(event.id) === -1).length}　/　{group.eventList.length}</Flex>
-      <Flex ml='10%'fontSize='xl' mr={'10'}>総時間　{Math.round(group.eventList.filter(event => group.inVisibleEventId.indexOf(event.id) === -1).reduce((sum,event) => sum+event.time,0)*10)/10}<Spacer /><Button variant={'ghost'}onClick={handleDeleteGroupItem}><DeleteIcon color={'grey'}/></Button></Flex>
+      <Flex minH={'10'} ml='10%'fontSize='xl' mr={'10'}>総時間　{Math.round(group.eventList.filter(event => group.inVisibleEventId.indexOf(event.id) === -1).reduce((sum,event) => sum+event.time,0)*10)/10}<Spacer />{group.groupType==='all' ? '' :<Button variant={'ghost'}onClick={handleDeleteGroupItem}><DeleteIcon color={'grey'}/></Button>}</Flex>
       <PerHourComponent group={group} />
       <PerDayComponent group={group} />
     </>

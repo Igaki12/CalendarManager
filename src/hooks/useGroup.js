@@ -4,11 +4,13 @@ import {ulid} from "ulid";
 export const useGroup = () => {
   const [groupData,setGroup] = useState([]);
 
-  const addGroupItem = (type,title,eventList) => {
+  const addGroupItem = (type,title,eventList,weekendOnly,nightOnly) => {
     const newGroupItem = {
       id: ulid(),
       groupType: type,
       groupTitle: title,
+      weekendOnly: weekendOnly,
+      nightOnly: nightOnly,
       eventList: eventList,
       inVisibleEventId:[],
       additionalRowType: 'perHour',
@@ -42,9 +44,9 @@ export const useGroup = () => {
     // console.log(changedGroupData);
     return setGroup(changedGroupData);
   }
-  const showGroupList = () => {
-    return groupData;
-  }
+  // const showGroupList = () => {
+  //   return groupData;
+  // }
   const calculateTotalMoney = (groupId,inputWage) => {
     let changedGroupData = [...groupData];
     const group = changedGroupData.find((group)=> group.id === groupId);

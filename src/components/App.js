@@ -13,7 +13,7 @@ function App() {
   const groupList = groupData;
   if(groupData.length === 0){
     eventData = showEventList();
-    addGroupItem('search','',[...eventData]);
+    addGroupItem('all','All Events',[...eventData],false,false);
   }
   return (
     <>
