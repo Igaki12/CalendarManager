@@ -39,11 +39,13 @@ export const Group = ({
 
   const handleCalculateTotalMoney = (groupId) => {
     console.log('inputWage:' + inputWage.current.value);
+    inputSalary.current.value = 0;
     calculateTotalMoney(groupId,inputWage.current.value);
     console.log(group.totalMoney);
     return;
   }
   const handleCalculateTotalSalary = () => {
+    inputWage.current.value = 0;
     calculateTotalSalary(group.id,inputSalary.current.value);
     return;
   }
@@ -56,8 +58,8 @@ export const Group = ({
   let menuScheme = 'grey';
   if (group.groupType === 'search') menuScheme = 'blue';
   else if (group.groupType === "time") menuScheme = 'purple';
-  else if (group.groupType === "weekend") menuScheme = 'yellow';
-  else if (group.groupType === "at") menuScheme = 'red';
+  else if (group.groupType === "weekend") menuScheme = 'red';
+  else if (group.groupType === "at") menuScheme = 'yellow';
 
   const TitleIcon = ({groupType}) => {
     if (groupType === 'search')  return <SearchIcon mt='1' />;

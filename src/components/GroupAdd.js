@@ -80,9 +80,9 @@ let predictEventList = [...eventList];
     const totalHours = eventList.reduce((sum,event) => sum + event.time,0);
     let menuScheme = 'grey';
     if (type === 'search') menuScheme = 'blue';
-    else if (type === "at") menuScheme = 'red';
+    else if (type === "at") menuScheme = 'yellow';
     else if (type === "time") menuScheme = 'purple';
-    else if (type === "weekend") menuScheme = 'yellow';
+    else if (type === "weekend") menuScheme = 'red';
     const TitleIcon = ({groupType}) => {
       if (groupType === 'search')  return <SearchIcon mt='1' />;
       else if (groupType === "at") return <AtSignIcon mt='1' />;
