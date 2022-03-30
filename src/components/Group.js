@@ -61,9 +61,9 @@ export const Group = ({
   // else if (group.groupType === "weekend") menuScheme = 'red';
   else if (group.groupType === "at") menuScheme = 'yellow';
   else if (group.groupType === "all") menuScheme = 'green';
-  if(group.weekendOnly) menuScheme = 'red';
+  if(group.weekendOnly) menuScheme = 'pink';
   if(group.nightOnly) menuScheme = 'purple';
-  if(group.weekendOnly && group.nightOnly) menuScheme = 'brown';
+  if(group.weekendOnly && group.nightOnly) menuScheme = 'red';
 
   const TitleIcon = ({groupType}) => {
     if (groupType === 'search')  return <SearchIcon mt='1' />;

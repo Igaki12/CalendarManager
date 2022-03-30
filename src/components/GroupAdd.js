@@ -157,9 +157,9 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
     else if (type === "at") menuScheme = 'yellow';
     // else if (type === "time") menuScheme = 'purple';
     // else if (type === "weekend") menuScheme = 'red';
-    if(weekendOnly) menuScheme = 'red';
+    if(weekendOnly) menuScheme = 'pink';
     if(nightOnly) menuScheme = 'purple';
-    if(weekendOnly && nightOnly) menuScheme = 'brown';
+    if(weekendOnly && nightOnly) menuScheme = 'red';
     const TitleIcon = ({groupType}) => {
       if (groupType === 'search')  return <SearchIcon mt='1' />;
       else if (groupType === "at") return <AtSignIcon mt='1' />;
@@ -195,7 +195,7 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
         <EventList eventList={eventList} />
       </Menu>
       <Flex ml='10%' fontSize='xl' color={'grey'}>個数　{eventList.length}</Flex>
-      <Flex ml='10%'fontSize='xl' mr={'10'} color='grey'>総時間　{totalHours}<Spacer /></Flex>
+      <Flex ml='10%'fontSize='xl' mr={'10'} color='grey'>総時間　{Math.round(totalHours*10) /10}<Spacer /></Flex>
       </Box>
       );
   };
@@ -223,7 +223,7 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
             <Checkbox colorScheme='purple' onChange={() =>{nightOnly ? setNightOnly(false) : setNightOnly(true)}}>
               夜間のみ
             </Checkbox>
-            <Checkbox colorScheme={'red'} onChange={() => {weekendOnly ? setWeekendOnly(false) : setWeekendOnly(true)}}>
+            <Checkbox colorScheme={'pink'} onChange={() => {weekendOnly ? setWeekendOnly(false) : setWeekendOnly(true)}}>
               土日のみ
             </Checkbox>
           </Stack>
