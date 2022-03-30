@@ -15,6 +15,13 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
     if(type === 'search'){
       addedEventList = [...eventList].filter((event)=> event.summary.indexOf(inputEl.current.value) !== -1);
     }
+    if(type === 'at'){
+      addedEventList = [...eventList].filter((event)=>{
+        if(event.location){
+          return event.location.indexOf(inputEl.current.value) !== -1;
+        }
+      });
+    }
     // ここに今後場所等についての挙動を追加
     console.log(addedEventList);
     if(addedEventList.length === 0) return setCaution('条件に合うイベントが見つかりません');
@@ -28,6 +35,13 @@ export const GroupAdd = ({eventList,addGroupItem}) => {
     let addedEventList = eventList;
     if(type === 'search'){
       addedEventList = [...eventList].filter((event)=> event.summary.indexOf(inputEl.current.value) !== -1);
+    }
+    if(type === 'at'){
+      addedEventList = [...eventList].filter((event) => {
+        if(event.location){
+          return event.location.indexOf(inputEl.current.value) !== -1;
+        }
+      })
     }
     if(type === 'weekend'){
       addedEventList = [...eventList].filter((event)=> {
@@ -54,19 +68,26 @@ let predictEventList = [...eventList];
   if(type === 'search'){
     predictEventList = [...eventList].filter((event)=> event.summary.indexOf(groupTitle) !== -1);
   }
+  if(type === 'at'){
+    predictEventList = [...eventList].filter((event)=> {
+      if(event.location){
+        return event.location.indexOf(groupTitle) !== -1
+      }
+    });
+    }
   // ここに今後場所などについての挙動を追加
   const PredictiveGroup = ({eventList,groupTitle}) => {
     const totalHours = eventList.reduce((sum,event) => sum + event.time,0);
     let menuScheme = 'grey';
     if (type === 'search') menuScheme = 'blue';
+    else if (type === "at") menuScheme = 'red';
     else if (type === "time") menuScheme = 'purple';
     else if (type === "weekend") menuScheme = 'yellow';
-    else if (type === "at") menuScheme = 'red';
     const TitleIcon = ({groupType}) => {
       if (groupType === 'search')  return <SearchIcon mt='1' />;
+      else if (groupType === "at") return <AtSignIcon mt='1' />;
       else if (groupType === "time") return <TimeIcon mt='1' />;
       else if (groupType === "weekend") return <CalendarIcon mt='1' />;
-      else if (groupType === "at") return <AtSignIcon mt='1' />;
       else return <InfoOutlineIcon mt='1' />;
     };
     const GroupTitle = ({groupType, groupTitle}) => {
@@ -82,7 +103,7 @@ let predictEventList = [...eventList];
         <MenuList type="checkbox">
           <MenuGroup title='Events' type='checkbox'>
             {eventList.map((event,index) => (
-              <MenuItem key={index} value={index}>{event.summary}</MenuItem>
+              <MenuItem key={index} value={index}>{event.start.dateTime.split("T")[0]}　"{event.summary}"</MenuItem>
           ))}
           </MenuGroup>
         </MenuList>
@@ -121,10 +142,10 @@ let predictEventList = [...eventList];
             <Radio colorScheme='red' value='weekend'>
               土日のみ
             </Radio> */}
-            <Checkbox colorScheme='purple'>
+            <Checkbox colorScheme='purple' isDisabled>
               夜間のみ
             </Checkbox>
-            <Checkbox colorScheme={'red'}>
+            <Checkbox colorScheme={'red'} isDisabled>
               土日のみ
             </Checkbox>
           </Stack>

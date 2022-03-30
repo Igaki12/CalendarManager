@@ -26,26 +26,28 @@ export const useEvent = () => {
   //   return setEvent([ ...elseEvent ,changingEvent])
   // }
   const createNewEventList = (eventList) => {
-    let newEventList = eventList.map((event)=> {
-      let startDate = new Date(event.start.dateTime.split("-")[0]
-      , parseInt(event.start.dateTime.split("-")[1]) - 1
-      , parseInt(event.start.dateTime.split("-")[2].split("T")[0])
-      , parseInt(event.start.dateTime.split("T")[1].split(":")[0])
-      , parseInt(event.start.dateTime.split(":")[1])
-      , parseInt(event.start.dateTime.split(":")[2].split("+")));
-      let endDate = new Date(event.end.dateTime.split("-")[0]
-      , parseInt(event.end.dateTime.split("-")[1]) - 1
-      , parseInt(event.end.dateTime.split("-")[2].split("T")[0])
-      , parseInt(event.end.dateTime.split("T")[1].split(":")[0])
-      , parseInt(event.end.dateTime.split(":")[1])
-      , parseInt(event.end.dateTime.split(":")[2].split("+")));
-      event.StartDateTime = startDate;
-      event.endDateTime = endDate;
-      event.time = (endDate.getTime() - startDate.getTime())/(60*60*1000);
-      return event;
+    let newEventList = eventList.filter((event)=> {
+      if(event.start.dateTime && event.end.dateTime){
+        let startDate = new Date(event.start.dateTime.split("-")[0]
+        , parseInt(event.start.dateTime.split("-")[1]) - 1
+        , parseInt(event.start.dateTime.split("-")[2].split("T")[0])
+        , parseInt(event.start.dateTime.split("T")[1].split(":")[0])
+        , parseInt(event.start.dateTime.split(":")[1])
+        , parseInt(event.start.dateTime.split(":")[2].split("+")));
+        let endDate = new Date(event.end.dateTime.split("-")[0]
+        , parseInt(event.end.dateTime.split("-")[1]) - 1
+        , parseInt(event.end.dateTime.split("-")[2].split("T")[0])
+        , parseInt(event.end.dateTime.split("T")[1].split(":")[0])
+        , parseInt(event.end.dateTime.split(":")[1])
+        , parseInt(event.end.dateTime.split(":")[2].split("+")));
+        event.startDateTime = startDate;
+        event.endDateTime = endDate;
+        event.time = (endDate.getTime() - startDate.getTime())/(60*60*1000);
+      }
+
+      return event.start.dateTime && event.end.dateTime;
     });
     console.log(newEventList);
-    // setEvent([...eventList]);
     setEvent([...newEventList]);
   }
   const showEventList = () => {

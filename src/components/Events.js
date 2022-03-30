@@ -48,6 +48,9 @@ export const Events = ({createNewEventList,eventData,deleteAllGroupItem }) => {
             getStartDate={getStartDate}
             getRange={getRange}
             />
+            {/* <Button fontSize={'2xl'} ml='2' colorScheme={'teal'} mt='-1' onClick={getEvents}> */}
+              {/* <Search2Icon />
+            </Button> */}
           </Flex>
       </Box>
     </Box>
@@ -73,8 +76,8 @@ export const Events = ({createNewEventList,eventData,deleteAllGroupItem }) => {
     overflow='auto'
     m={2} mt='1' ml='50' mr='50' pl='1' pr='1'
     >
-      {eventData.map((value,index) => (
-        <Flex key={index} color={"grey.900"} bgColor={"green.50"} mt='1' mb='1' pl='5' pr='5'>{value.start.dateTime.split("T")[0].slice(5)}<Spacer />{value.summary}</Flex>
+      {eventData.map((event,index) => (
+        <Flex key={index} color={"grey.900"} bgColor={"green.50"} mt='1' mb='1' pl='5' pr='5'>{event.start.dateTime.split("T")[0].slice(5)}<Spacer />{event.summary}</Flex>
       ))}
     </Box>
     </>

@@ -30,21 +30,25 @@ export function AppCalc({eventData,createNewEventList,deleteAllGroupItem,getStar
       //2.認証チェック
       if (ApiCalendar.sign) {
         //3.イベントの取得
-        let end = TimeMinDate;
-        end.setDate(end.getDate() + range);
-        console.log(end);
+        let end = new Date(parseInt(startDate.split("-")[0]),parseInt(startDate.split("-")[1] -1),parseInt(startDate.split("-")[2]));
+        end.setDate(parseInt(end.getDate()) + parseInt(range));
+        console.log(end.toISOString());
 
         console.log("gapi.client.calendar", ApiCalendar.gapi.client.calendar);
 
         ApiCalendar.listEvents({
           timeMin: (TimeMinDate).toISOString(),
           timeMax: end.toISOString(),
-          showDeleted: true,
-          maxResults: 10,
-          orderBy: 'updated'
+          showDeleted: false,
+          // added column: singleEvents orderbyをstartTimeに変更するため
+          singleEvents: true,
+          maxResults: 100,
+          // orderBy: 'updated'
+          orderBy: 'startTime',
         }).then(({ result }) => {
           if (result.items) {
             console.log("Events From Calendar", result.items);
+            console.log(result.items[0].start.dateTime);
             createNewEventList(result.items);
             console.log("eventList", eventData);
             deleteAllGroupItem();

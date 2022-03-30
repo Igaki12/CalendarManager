@@ -79,7 +79,7 @@ export const Group = ({
       <MenuList type="checkbox">
         <MenuGroup title='Events' type='checkbox'>
           {eventList.map((event,index) => (
-            <MenuItem key={index} value={index} onClick={() => handleToggleEventCheck(index)}>{(group.inVisibleEventId.indexOf(event.id) === -1)? <CheckIcon /> : ' ' }<Spacer />{event.summary}</MenuItem>
+            <MenuItem key={index} value={index} onClick={() => handleToggleEventCheck(index)}>{(group.inVisibleEventId.indexOf(event.id) === -1)? <CheckIcon /> : '　' }　{event.start.dateTime.split("T")[0].slice(5)}<Spacer />　"{event.summary}"</MenuItem>
         ))}
         </MenuGroup>
       </MenuList>
