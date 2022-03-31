@@ -15,6 +15,9 @@ function App() {
     eventData = showEventList();
     addGroupItem('all','All Events',[...eventData],false,false);
   }
+
+
+
   return (
     <>
       <Box fontSize='3xl' color='purple' p='10px' fontWeight={'bold'}>
@@ -35,16 +38,6 @@ function App() {
         toggleAdditionalRowType={toggleAdditionalRowType}
          />
       ))}
-        {/* <Group
-        id={0}
-        key={-1}
-        group={AllGroups}
-        toggleEventCheck={toggleEventCheck}
-        deleteGroupItem={deleteGroupItem}
-        calculateTotalMoney={calculateTotalMoney}
-        calculateTotalSalary={calculateTotalSalary}
-        toggleAdditionalRowType={toggleAdditionalRowType}
-         /> */}
       </Box>
       <Flex zIndex={'1000'} width='100%' pt='1' pb='1' pl='10' fontSize='2xl' justifyContent='center' fontWeight='bold' bgColor='green.700' color='white' position='fixed' bottom='0'>
         合計　{groupList.reduce((sum,group) => sum + group.totalMoney,0).toLocaleString()}円

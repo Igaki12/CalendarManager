@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/CalendarManager/static/js/main.dec6d70c.js",
+    "main.js": "/CalendarManager/static/js/main.ad1f0edb.js",
     "static/js/787.7faaa4c4.chunk.js": "/CalendarManager/static/js/787.7faaa4c4.chunk.js",
     "index.html": "/CalendarManager/index.html",
-    "main.dec6d70c.js.map": "/CalendarManager/static/js/main.dec6d70c.js.map",
+    "main.ad1f0edb.js.map": "/CalendarManager/static/js/main.ad1f0edb.js.map",
     "787.7faaa4c4.chunk.js.map": "/CalendarManager/static/js/787.7faaa4c4.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.dec6d70c.js"
+    "static/js/main.ad1f0edb.js"
   ]
 }

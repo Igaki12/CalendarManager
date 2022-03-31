@@ -1,7 +1,9 @@
-import { Box, Button, Flex, Input, Spacer,NumberInput,NumberInputField,NumberInputStepper,NumberIncrementStepper,NumberDecrementStepper } from "@chakra-ui/react";
-import { EditIcon, Search2Icon } from "@chakra-ui/icons";
-import { AppCalc } from "../apis/calendar";
-import { useRef } from "react";
+import { Box, Flex, Input, Spacer,NumberInput,NumberInputField,NumberInputStepper,NumberIncrementStepper,NumberDecrementStepper } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
+import { AppCalc, isSigned } from "./AppCalc";
+import { useRef, useState, useEffect } from "react";
+import { getEvents } from "../apis/calendar";
+
 
 export const Events = ({createNewEventList,eventData,deleteAllGroupItem }) => {
   let thisDate = new Date();
@@ -15,6 +17,26 @@ export const Events = ({createNewEventList,eventData,deleteAllGroupItem }) => {
   const getRange = () => {
     return range.current.value;
   }
+
+  useEffect(() => {
+    console.log("called only once");
+    let timerId = setInterval(() => {
+      if(isSigned()){
+        console.log("update sign");
+        clearInterval(timerId);
+
+        //setSigned(true);
+        getEvents({
+          eventData : eventData,
+          createNewEventList : createNewEventList,
+          deleteAllGroupItem : deleteAllGroupItem,
+          getStartDate : getStartDate,
+          getRange : getRange
+        });
+      }
+    }, 1000);
+  }, [])
+
   return (
     <>
     <Box fontSize={'xl'}
@@ -48,9 +70,6 @@ export const Events = ({createNewEventList,eventData,deleteAllGroupItem }) => {
             getStartDate={getStartDate}
             getRange={getRange}
             />
-            {/* <Button fontSize={'2xl'} ml='2' colorScheme={'teal'} mt='-1' onClick={getEvents}> */}
-              {/* <Search2Icon />
-            </Button> */}
           </Flex>
       </Box>
     </Box>
